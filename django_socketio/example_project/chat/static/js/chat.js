@@ -58,7 +58,7 @@ $(function() {
     var socket;
 
     var connected = function() {
-        socket.subscribe('room-' + window.room);
+        socket.subscribe(window.room);
         if (name) {
             socket.send({room: window.room, action: 'start', name: name});
         } else {

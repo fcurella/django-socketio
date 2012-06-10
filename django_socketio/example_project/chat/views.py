@@ -1,8 +1,7 @@
 
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404, render, redirect
-from django_socketio import broadcast, broadcast_channel, NoSocket
-
+from django_socketio import broadcast, emit_to_room, NoSocket
 from chat.models import ChatRoom
 
 
@@ -42,9 +41,9 @@ def system_message(request, template="system_message.html"):
         data = {"action": "system", "message": request.POST["message"]}
         try:
             if room:
-                broadcast_channel(data, channel="room-" + room)
+                emit_to_room(request, channel=room, event=data)
             else:
-                broadcast(data)
+                broadcast(request, data)
         except NoSocket, e:
             context["message"] = e
         else:
