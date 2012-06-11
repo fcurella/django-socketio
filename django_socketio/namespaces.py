@@ -37,5 +37,5 @@ class ChatIONamespace(BaseNamespace, RoomsMixin, BroadcastMixin):
         events.on_error.send(self.request, self.socket, self._get_context(),  *args, **kwargs)
 
     def disconnect(self, *args, **kwargs):
-        super(ChatIONamespace).disconnect(*args, **kwargs)
-        events.on_finish.send(self.request, self.socket, self.context, *args, **kwargs)
+        super(ChatIONamespace, self).disconnect(*args, **kwargs)
+        events.on_finish.send(self.request, self.socket, self._get_context(), *args, **kwargs)
