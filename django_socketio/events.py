@@ -50,7 +50,7 @@ class Event(object):
             channel = re.compile(channel)
         self.handlers.append((handler, channel))
 
-    def send(self, request, socket, context, *args):
+    def send(self, request, socket, context, *args, **kwargs):
         """
         When an event is sent, run all relevant handlers. Relevant
         handlers are those without a channel pattern when the given
